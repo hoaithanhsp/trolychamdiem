@@ -1,0 +1,5 @@
+{
+  "name": "FlagMaster",
+  "description": "Hệ thống quản lý chấm điểm cờ đỏ, nề nếp và thi đua học sinh.",
+  "requestFramePermissions": []
+}
