@@ -117,12 +117,15 @@ const App: React.FC = () => {
           <div className="flex items-center gap-4">
             <div className="flex items-center gap-3 pl-2">
               <div className="text-right hidden sm:block">
-                <p className="text-sm font-semibold text-slate-900 leading-none">Giáo Viên</p>
-                <p className="text-xs text-slate-500 mt-1 leading-none">Quản trị viên</p>
+                <p className="text-sm font-semibold text-slate-900 leading-none">Trần Thị Kim Thoa</p>
+                <p className="text-xs text-slate-500 mt-0.5 leading-none">THPT Hoàng Diệu</p>
+                <p className="text-[10px] text-slate-400 mt-0.5 leading-none">Số 1 Mạc Đĩnh Chi, Phú Lợi, Cần Thơ</p>
               </div>
-              <div className="bg-primary/10 size-10 rounded-full border-2 border-primary/20 flex items-center justify-center text-primary font-bold">
-                GV
-              </div>
+              <img
+                src="/teacher_avatar.jpg"
+                alt="Cô Trần Thị Kim Thoa"
+                className="size-11 rounded-full border-2 border-primary/20 object-cover shadow-sm"
+              />
             </div>
           </div>
         </header>
