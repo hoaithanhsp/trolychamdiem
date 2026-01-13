@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { ViewState, AppData } from './types';
 import { getStorageData, saveStorageData, exportData, resetSemester } from './services/storage';
-import { LayoutDashboard, Users, ClipboardList, PieChart, Menu, Download, RotateCcw, Flag, Settings as SettingsIcon, X, Calendar } from 'lucide-react';
+import { LayoutDashboard, Users, ClipboardList, PieChart, Menu, Download, RotateCcw, Flag, Settings as SettingsIcon, X, Calendar, LogOut } from 'lucide-react';
 
 // Components
 import Dashboard from './components/Dashboard';
@@ -9,16 +9,30 @@ import ClassManager from './components/ClassManager';
 import DailyScoring from './components/DailyScoring';
 import Reports from './components/Reports';
 import Settings from './components/Settings';
+import LoginModal from './components/LoginModal';
 
 const App: React.FC = () => {
   const [currentView, setCurrentView] = useState<ViewState>('dashboard');
   const [data, setData] = useState<AppData | null>(null);
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const [showAcademicYearModal, setShowAcademicYearModal] = useState(false);
+  const [isLoggedIn, setIsLoggedIn] = useState(() => {
+    return localStorage.getItem('flagmaster_logged_in') === 'true';
+  });
   const [academicYear, setAcademicYear] = useState(() => {
     const saved = localStorage.getItem('flagmaster_academic_year');
     return saved ? JSON.parse(saved) : { year: '2025-2026', semester: 'I' };
   });
+
+  const handleLogin = () => {
+    setIsLoggedIn(true);
+  };
+
+  const handleLogout = () => {
+    localStorage.removeItem('flagmaster_logged_in');
+    localStorage.removeItem('flagmaster_user');
+    setIsLoggedIn(false);
+  };
 
   // Load data on mount
   useEffect(() => {
@@ -52,6 +66,11 @@ const App: React.FC = () => {
   };
 
   if (!data) return <div className="min-h-screen flex items-center justify-center text-primary font-bold">Loading FlagMaster...</div>;
+
+  // Hiển thị màn hình đăng nhập nếu chưa đăng nhập
+  if (!isLoggedIn) {
+    return <LoginModal onLogin={handleLogin} />;
+  }
 
   const NavItem = ({ view, icon: Icon, label }: { view: ViewState, icon: any, label: string }) => (
     <button
@@ -105,6 +124,9 @@ const App: React.FC = () => {
             </button>
             <button onClick={handleReset} className="w-full flex items-center gap-3 px-4 py-3 rounded-xl text-slate-600 hover:bg-rose-50 hover:text-rose-600 transition-colors text-sm font-medium">
               <RotateCcw size={20} /> Reset Học kỳ
+            </button>
+            <button onClick={handleLogout} className="w-full flex items-center gap-3 px-4 py-3 rounded-xl text-slate-600 hover:bg-rose-50 hover:text-rose-600 transition-colors text-sm font-medium">
+              <LogOut size={20} /> Đăng xuất
             </button>
           </div>
         </div>
@@ -195,8 +217,8 @@ const App: React.FC = () => {
                   <button
                     onClick={() => setAcademicYear(prev => ({ ...prev, semester: 'I' }))}
                     className={`flex-1 py-3 rounded-xl font-bold transition-colors ${academicYear.semester === 'I'
-                        ? 'bg-primary text-white'
-                        : 'bg-slate-100 text-slate-600 hover:bg-slate-200'
+                      ? 'bg-primary text-white'
+                      : 'bg-slate-100 text-slate-600 hover:bg-slate-200'
                       }`}
                   >
                     Học kỳ I
@@ -204,8 +226,8 @@ const App: React.FC = () => {
                   <button
                     onClick={() => setAcademicYear(prev => ({ ...prev, semester: 'II' }))}
                     className={`flex-1 py-3 rounded-xl font-bold transition-colors ${academicYear.semester === 'II'
-                        ? 'bg-primary text-white'
-                        : 'bg-slate-100 text-slate-600 hover:bg-slate-200'
+                      ? 'bg-primary text-white'
+                      : 'bg-slate-100 text-slate-600 hover:bg-slate-200'
                       }`}
                   >
                     Học kỳ II
