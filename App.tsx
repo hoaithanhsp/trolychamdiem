@@ -66,6 +66,11 @@ const App: React.FC = () => {
       {/* Sidebar */}
       <aside className={`fixed lg:static inset-y-0 left-0 z-30 w-72 bg-white border-r border-slate-200 transform transition-transform duration-200 ease-in-out ${isSidebarOpen ? 'translate-x-0' : '-translate-x-full'} lg:translate-x-0 flex flex-col`}>
         <div className="p-6 flex flex-col gap-6 h-full">
+          {/* Logo */}
+          <div className="flex justify-center">
+            <img src="/logo_thoa.jpg" alt="Logo Trần Thị Kim Thoa" className="w-28 h-28 object-contain" />
+          </div>
+
           <div className="flex items-center gap-3">
             <div className="bg-primary size-10 rounded-lg flex items-center justify-center text-white shadow-lg shadow-primary/30">
               <Flag size={24} fill="currentColor" />
