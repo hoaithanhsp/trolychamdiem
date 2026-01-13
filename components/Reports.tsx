@@ -142,29 +142,29 @@ const Reports: React.FC<ReportsProps> = ({ data }) => {
                     <button
                         onClick={() => handleTimeFilter('week')}
                         className={`px-5 py-2 rounded-lg text-sm font-bold transition-colors ${timeFilter === 'week'
-                                ? 'bg-primary text-white border border-primary shadow-sm'
-                                : 'text-slate-500 hover:bg-slate-100'
+                            ? 'bg-primary text-white border border-primary shadow-sm'
+                            : 'text-slate-500 hover:bg-slate-100'
                             }`}
                     >Tuần này</button>
                     <button
                         onClick={() => handleTimeFilter('month')}
                         className={`px-5 py-2 rounded-lg text-sm font-bold transition-colors ${timeFilter === 'month'
-                                ? 'bg-primary text-white border border-primary shadow-sm'
-                                : 'text-slate-500 hover:bg-slate-100'
+                            ? 'bg-primary text-white border border-primary shadow-sm'
+                            : 'text-slate-500 hover:bg-slate-100'
                             }`}
                     >Tháng này</button>
                     <button
                         onClick={() => handleTimeFilter('semester')}
                         className={`px-5 py-2 rounded-lg text-sm font-bold transition-colors ${timeFilter === 'semester'
-                                ? 'bg-primary text-white border border-primary shadow-sm'
-                                : 'text-slate-500 hover:bg-slate-100'
+                            ? 'bg-primary text-white border border-primary shadow-sm'
+                            : 'text-slate-500 hover:bg-slate-100'
                             }`}
                     >Học kỳ</button>
                     <button
                         onClick={() => handleTimeFilter('custom')}
                         className={`px-5 py-2 rounded-lg text-sm font-bold flex items-center gap-1 transition-colors ${timeFilter === 'custom'
-                                ? 'bg-primary text-white border border-primary shadow-sm'
-                                : 'text-slate-500 hover:bg-slate-100'
+                            ? 'bg-primary text-white border border-primary shadow-sm'
+                            : 'text-slate-500 hover:bg-slate-100'
                             }`}
                     >
                         <Calendar size={16} /> Tùy chỉnh
@@ -207,21 +207,33 @@ const Reports: React.FC<ReportsProps> = ({ data }) => {
                         <div className="p-6 space-y-4">
                             <div className="flex flex-col gap-2">
                                 <label className="text-sm font-medium text-slate-600">Từ ngày:</label>
-                                <input
-                                    type="date"
-                                    value={customDateRange.start}
-                                    onChange={(e) => setCustomDateRange(prev => ({ ...prev, start: e.target.value }))}
-                                    className="px-4 py-3 rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-primary/50"
-                                />
+                                <div className="relative">
+                                    <div className="px-4 py-3 rounded-xl border border-slate-200 focus-within:ring-2 focus-within:ring-primary/50 flex items-center justify-between">
+                                        <span className="text-slate-700 font-medium">{formatDateDisplay(customDateRange.start)}</span>
+                                        <input
+                                            type="date"
+                                            value={customDateRange.start}
+                                            onChange={(e) => setCustomDateRange(prev => ({ ...prev, start: e.target.value }))}
+                                            className="absolute inset-0 opacity-0 cursor-pointer"
+                                        />
+                                        <Calendar size={18} className="text-slate-400" />
+                                    </div>
+                                </div>
                             </div>
                             <div className="flex flex-col gap-2">
                                 <label className="text-sm font-medium text-slate-600">Đến ngày:</label>
-                                <input
-                                    type="date"
-                                    value={customDateRange.end}
-                                    onChange={(e) => setCustomDateRange(prev => ({ ...prev, end: e.target.value }))}
-                                    className="px-4 py-3 rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-primary/50"
-                                />
+                                <div className="relative">
+                                    <div className="px-4 py-3 rounded-xl border border-slate-200 focus-within:ring-2 focus-within:ring-primary/50 flex items-center justify-between">
+                                        <span className="text-slate-700 font-medium">{formatDateDisplay(customDateRange.end)}</span>
+                                        <input
+                                            type="date"
+                                            value={customDateRange.end}
+                                            onChange={(e) => setCustomDateRange(prev => ({ ...prev, end: e.target.value }))}
+                                            className="absolute inset-0 opacity-0 cursor-pointer"
+                                        />
+                                        <Calendar size={18} className="text-slate-400" />
+                                    </div>
+                                </div>
                             </div>
                             <button
                                 onClick={handleApplyCustomDate}
